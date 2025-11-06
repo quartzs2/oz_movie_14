@@ -4,7 +4,7 @@ import useFetch from "@hooks/useFetch";
 
 const Home = () => {
   const { data, error, isLoading } = useFetch({
-    query: fetchPopularMovieList,
+    queryFn: fetchPopularMovieList,
   });
 
   if (isLoading) {

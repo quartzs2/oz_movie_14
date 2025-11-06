@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-function useFetch({ options = {}, query }) {
+function useFetch({ options = {}, queryFn, queryKey = [] }) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  const queryFnRef = useRef(queryFn);
+  queryFnRef.current = queryFn;
+
   const serializedOptions = JSON.stringify(options);
+  const serializedQueryKey = JSON.stringify(queryKey);
 
   useEffect(() => {
-    if (!query) {
+    if (!queryFnRef.current) {
       setIsLoading(false);
       return;
     }
@@ -23,7 +27,7 @@ function useFetch({ options = {}, query }) {
       try {
         const parsedOptions = JSON.parse(serializedOptions);
 
-        const result = await query({
+        const result = await queryFnRef.current({
           ...parsedOptions,
           signal: controller.signal,
         });
@@ -43,7 +47,7 @@ function useFetch({ options = {}, query }) {
     return () => {
       controller.abort();
     };
-  }, [query, serializedOptions]);
+  }, [serializedQueryKey, serializedOptions]);
 
   return { data, error, isLoading };
 }
