@@ -1,17 +1,17 @@
-import { Routes, Route } from "react-router";
-import MainLayout from "./components/layout/MainLayout";
-import { Home, NotFound } from "./pages";
-import { ROUTE_PATHS } from "./constants/urls";
+import MainLayout from "@components/layout/MainLayout";
+import { ROUTE_PATHS } from "@constants/urls";
+import { Home, NotFound } from "@pages";
+import { Route, Routes } from "react-router";
 
 function App() {
   const ROUTES = [
     {
-      path: ROUTE_PATHS.HOME,
       element: <Home />,
+      path: ROUTE_PATHS.HOME,
     },
     {
-      path: ROUTE_PATHS.NOT_FOUND,
       element: <NotFound />,
+      path: ROUTE_PATHS.NOT_FOUND,
     },
   ];
 
@@ -19,7 +19,7 @@ function App() {
     <Routes>
       <Route element={<MainLayout />}>
         {ROUTES.map((route) => (
-          <Route key={route.path} path={route.path} element={route.element} />
+          <Route element={route.element} key={route.path} path={route.path} />
         ))}
       </Route>
     </Routes>
