@@ -1,6 +1,6 @@
 import MainLayout from "@components/layout/MainLayout";
 import { ROUTE_PATHS } from "@constants/urls";
-import { Home, NotFound } from "@pages";
+import { Detail, Home, NotFound } from "@pages";
 import { Route, Routes } from "react-router";
 
 function App() {
@@ -8,6 +8,10 @@ function App() {
     {
       element: <Home />,
       path: ROUTE_PATHS.HOME,
+    },
+    {
+      element: <Detail />,
+      path: ROUTE_PATHS.DETAIL,
     },
     {
       element: <NotFound />,
