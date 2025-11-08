@@ -22,7 +22,7 @@ const Detail = () => {
   const { backdropPath, genres, overview, title, voteAverage } = data;
 
   return (
-    <main className="min-h-screen bg-neutral-50 py-16 text-neutral-900">
+    <main className="bg-neutral-50 pb-8 text-neutral-900">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 lg:flex-row lg:items-start">
         <div className="flex w-full items-center justify-center lg:max-w-sm">
           <img
