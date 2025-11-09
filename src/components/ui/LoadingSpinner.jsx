@@ -7,7 +7,7 @@ const LoadingSpinner = ({
 }) => {
   if (fullscreen) {
     return (
-      <div className="flex min-h-screen flex-1 items-center justify-center bg-neutral-50">
+      <div className="flex min-h-screen flex-1 items-center justify-center bg-neutral-50 dark:bg-gray-950">
         <ClipLoader color={color} loading={true} size={size} />
       </div>
     );

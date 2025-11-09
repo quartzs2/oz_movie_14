@@ -1,8 +1,10 @@
+import { THEME } from "@constants";
+import { useTheme } from "@hooks";
 import { cn } from "@utils/cn";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper } from "swiper/react";
 
 import "./Carousel.css";
@@ -22,6 +24,7 @@ const Carousel = ({
   spaceBetween = 16,
   swiperProps,
 }) => {
+  const { theme } = useTheme();
   const modules = [];
   if (navigation) {
     modules.push(Navigation);
@@ -47,7 +50,11 @@ const Carousel = ({
           : false
       }
       breakpoints={breakpoints || defaultBreakpoints}
-      className={cn(CUSTOM_CAROUSEL_CLASS, className)}
+      className={cn(
+        CUSTOM_CAROUSEL_CLASS,
+        theme === THEME.DARK && THEME.DARK,
+        className,
+      )}
       loop={loop}
       modules={modules}
       navigation={navigation}
