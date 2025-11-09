@@ -32,13 +32,18 @@ function useFetch({ options = {}, queryFn, queryKey = [] }) {
           signal: controller.signal,
         });
 
-        setData(result);
+        if (!controller.signal.aborted) {
+          setData(result);
+        }
       } catch (err) {
         if (err.name !== "AbortError") {
           setError(err);
         }
       } finally {
-        setIsLoading(false);
+        // abort되었을 때는 로딩 상태를 false로 변경하지 않음
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
       }
     };
 
