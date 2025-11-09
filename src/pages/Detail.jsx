@@ -1,4 +1,5 @@
 import { fetchMovieDetails } from "@api/fetchMovieDetails";
+import { ErrorMessage, LoadingSpinner } from "@components";
 import { TMDB_IMAGE_URL } from "@constants/urls";
 import useFetch from "@hooks/useFetch";
 import { useParams } from "react-router";
@@ -12,11 +13,11 @@ const Detail = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <ErrorMessage error={error} />;
   }
 
   const { backdropPath, genres, overview, title, voteAverage } = data;

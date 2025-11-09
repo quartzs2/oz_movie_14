@@ -1,5 +1,5 @@
 import { fetchNowPlayingMovies } from "@api/fetchNowPlayingMovies";
-import { Carousel, MovieCard } from "@components/index";
+import { Carousel, ErrorMessage, MovieCard, MovieCardSkeleton } from "@components/index";
 import { useFetch } from "@hooks";
 import { SwiperSlide } from "swiper/react";
 
@@ -8,32 +8,38 @@ const NowPlayingCarousel = () => {
     queryFn: fetchNowPlayingMovies,
   });
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <ErrorMessage error={error} />;
   }
 
   return (
     <section className="w-full px-4">
       <h1 className="mt-4 text-xl text-gray-700">NOW PLAYING</h1>
-      <p className="text-sm text-gray-500">
-        {data.dates.minimum} - {data.dates.maximum}
-      </p>
+      {isLoading ? (
+        <p className="text-sm text-gray-500 invisible">Loading...</p>
+      ) : (
+        <p className="text-sm text-gray-500">
+          {data.dates.minimum} - {data.dates.maximum}
+        </p>
+      )}
       <Carousel
-        autoplay={true}
+        autoplay={!isLoading}
         className="mt-1"
-        loop={true}
+        loop={!isLoading}
         slidesPerView={4}
         spaceBetween={16}
       >
-        {data.results.map((movie) => (
-          <SwiperSlide key={movie.id}>
-            <MovieCard movie={movie} />
-          </SwiperSlide>
-        ))}
+        {isLoading
+          ? Array.from({ length: 8 }).map((_, index) => (
+              <SwiperSlide key={index}>
+                <MovieCardSkeleton />
+              </SwiperSlide>
+            ))
+          : data.results.map((movie) => (
+              <SwiperSlide key={movie.id}>
+                <MovieCard movie={movie} />
+              </SwiperSlide>
+            ))}
       </Carousel>
     </section>
   );
