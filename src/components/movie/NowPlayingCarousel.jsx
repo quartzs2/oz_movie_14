@@ -1,5 +1,10 @@
 import { fetchNowPlayingMovies } from "@api/fetchNowPlayingMovies";
-import { Carousel, ErrorMessage, MovieCard, MovieCardSkeleton } from "@components/index";
+import {
+  Carousel,
+  ErrorMessage,
+  MovieCard,
+  MovieCardSkeleton,
+} from "@components/index";
 import { useFetch } from "@hooks";
 import { SwiperSlide } from "swiper/react";
 
@@ -14,11 +19,13 @@ const NowPlayingCarousel = () => {
 
   return (
     <section className="w-full px-4">
-      <h1 className="mt-4 text-xl text-gray-700">NOW PLAYING</h1>
+      <h1 className="mt-4 text-xl text-gray-700 dark:text-gray-200">
+        NOW PLAYING
+      </h1>
       {isLoading ? (
-        <p className="text-sm text-gray-500 invisible">Loading...</p>
+        <p className="invisible text-sm text-gray-500">Loading...</p>
       ) : (
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-gray-500 dark:text-gray-400">
           {data.dates.minimum} - {data.dates.maximum}
         </p>
       )}

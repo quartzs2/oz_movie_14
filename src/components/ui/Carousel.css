@@ -114,6 +114,40 @@
     }
   }
 
+  /* Dark mode styles */
+  &.dark {
+    & .swiper-button-prev,
+    & .swiper-button-next {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1.5px solid rgba(148, 163, 184, 0.3);
+
+      &:hover {
+        border: 2px solid rgb(148, 163, 184);
+      }
+
+      &::before {
+        border-top-color: #e2e8f0;
+        border-right-color: #e2e8f0;
+      }
+    }
+
+    & .swiper-button-disabled::before {
+      border-color: #475569;
+    }
+
+    & .swiper-pagination-bullet {
+      background-color: #475569;
+
+      &:hover {
+        background-color: #64748b;
+      }
+    }
+
+    & .swiper-pagination-bullet-active {
+      background-color: #e2e8f0;
+    }
+  }
+
   /* Responsive adjustments */
   @media (max-width: 640px) {
     padding: 0.5rem 1.5rem;

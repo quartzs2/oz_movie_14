@@ -7,3 +7,4 @@ export { default as NowPlayingCarousel } from "./movie/NowPlayingCarousel";
 export { default as Carousel } from "./ui/Carousel";
 export { default as ErrorMessage } from "./ui/ErrorMessage";
 export { default as LoadingSpinner } from "./ui/LoadingSpinner";
+export { default as ThemeToggle } from "./ui/ThemeToggle";
