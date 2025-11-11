@@ -1,7 +1,7 @@
 import MainLayout from "@components/layout/MainLayout";
 import { ROUTE_PATHS } from "@constants/urls";
 import { ThemeProvider } from "@contexts";
-import { Detail, Home, NotFound, Search } from "@pages";
+import { Detail, Home, Login, NotFound, Search, SignUp } from "@pages";
 import { Route, Routes } from "react-router";
 
 function App() {
@@ -17,6 +17,14 @@ function App() {
     {
       element: <Search />,
       path: ROUTE_PATHS.SEARCH,
+    },
+    {
+      element: <Login />,
+      path: ROUTE_PATHS.LOGIN,
+    },
+    {
+      element: <SignUp />,
+      path: ROUTE_PATHS.SIGNUP,
     },
     {
       element: <NotFound />,
