@@ -1,4 +1,4 @@
-import { SearchBar, ThemeToggle } from "@components/index";
+import { SearchBar, ThemeToggle } from "@components";
 import { ROUTE_PATHS } from "@constants/urls";
 import { Link } from "react-router";
 

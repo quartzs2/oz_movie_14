@@ -11,8 +11,10 @@ export const API_ROUTES = {
 export const ROUTE_PATHS = {
   DETAIL: "/detail/:movieId",
   HOME: "/",
+  LOGIN: "/login",
   NOT_FOUND: "*",
   SEARCH: "/search",
+  SIGNUP: "/signup",
 };
 
 export const ROUTE_HANDLERS = {

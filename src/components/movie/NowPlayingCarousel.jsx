@@ -4,7 +4,7 @@ import {
   ErrorMessage,
   MovieCard,
   MovieCardSkeleton,
-} from "@components/index";
+} from "@components";
 import { useFetch } from "@hooks";
 import { SwiperSlide } from "swiper/react";
 
