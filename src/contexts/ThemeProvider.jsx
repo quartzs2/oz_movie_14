@@ -1,6 +1,6 @@
+import { THEME } from "@constants";
 import { useEffect, useState } from "react";
 
-import { THEME } from "@constants";
 import { ThemeContext } from "./ThemeContext";
 
 const THEME_LOCAL_STORAGE_KEY = "theme";

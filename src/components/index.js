@@ -1,3 +1,5 @@
+export { default as AuthFormContainer } from "./form/AuthFormContainer";
+export { default as FormField } from "./form/FormField";
 export { default as Header } from "./layout/Header";
 export { default as MainLayout } from "./layout/MainLayout";
 export { default as SearchBar } from "./layout/SearchBar";
