@@ -18,8 +18,8 @@ function useAuthForm({ initialData, onSubmit, schema }) {
     } catch (error) {
       const fieldErrors = { ...initialErrors };
 
-      if (error.errors) {
-        error.errors.forEach((err) => {
+      if (error.issues) {
+        error.issues.forEach((err) => {
           const fieldName = err.path[0];
           if (fieldName in fieldErrors) {
             fieldErrors[fieldName] = err.message;
@@ -46,6 +46,7 @@ function useAuthForm({ initialData, onSubmit, schema }) {
     e.preventDefault();
 
     if (!validateForm({ data: formData })) {
+      alert("입력 정보를 확인해주세요.");
       return;
     }
 
