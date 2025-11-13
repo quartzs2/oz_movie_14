@@ -3,7 +3,7 @@ import { AuthFormContainer, FormField } from "@components";
 import { ROUTE_PATHS } from "@constants/urls";
 import { useAuthForm } from "@hooks";
 import { loginSchema } from "@utils";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 
 const LOGIN_FIELDS = [
   {
@@ -23,8 +23,6 @@ const LOGIN_FIELDS = [
 ];
 
 function Login() {
-  const navigate = useNavigate();
-
   const { errors, formData, handleChange, handleSubmit, isSubmitting } =
     useAuthForm({
       initialData: {
@@ -32,19 +30,13 @@ function Login() {
         password: "",
       },
       onSubmit: async (data) => {
-        const { data: authData, error } =
-          await supabase.auth.signInWithPassword({
-            email: data.email,
-            password: data.password,
-          });
+        const { error } = await supabase.auth.signInWithPassword({
+          email: data.email,
+          password: data.password,
+        });
 
         if (error) {
           throw error;
-        }
-
-        if (authData) {
-          alert("로그인 성공!");
-          navigate(ROUTE_PATHS.HOME);
         }
       },
       schema: loginSchema,

@@ -1,3 +1,5 @@
+export { PublicRoute } from "./auth/PublicRoute";
+export { default as UserToggle } from "./auth/UserToggle";
 export { default as AuthFormContainer } from "./form/AuthFormContainer";
 export { default as FormField } from "./form/FormField";
 export { default as Header } from "./layout/Header";

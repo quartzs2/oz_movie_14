@@ -1,4 +1,4 @@
-import { SearchBar, ThemeToggle } from "@components";
+import { SearchBar, ThemeToggle, UserToggle } from "@components";
 import { ROUTE_PATHS } from "@constants/urls";
 import { Link } from "react-router";
 
@@ -19,7 +19,8 @@ const Header = () => {
         <div className="flex flex-[1.5] justify-center">
           <SearchBar />
         </div>
-        <div className="flex flex-1 items-center justify-end">
+        <div className="flex flex-1 items-center justify-end gap-3">
+          <UserToggle />
           <ThemeToggle />
         </div>
       </div>
