@@ -1,5 +1,5 @@
-import { ROUTE_PATHS } from "@constants/urls";
-import { useAuth } from "@hooks/useAuth";
+import { ROUTE_PATHS } from "@constants";
+import { useAuth } from "@hooks";
 import { LogIn as LogInIcon, LogOut as LogOutIcon } from "lucide-react";
 import { Link } from "react-router";
 

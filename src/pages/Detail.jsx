@@ -1,6 +1,6 @@
-import { fetchMovieDetails } from "@api/fetchMovieDetails";
+import { fetchMovieDetails } from "@api";
 import { ErrorMessage, LoadingSpinner } from "@components";
-import { TMDB_IMAGE_URL } from "@constants/urls";
+import { TMDB_IMAGE_URL } from "@constants";
 import { useFetch } from "@hooks";
 import { StarIcon } from "lucide-react";
 import { useParams } from "react-router";

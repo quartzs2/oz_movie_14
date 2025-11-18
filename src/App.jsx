@@ -1,5 +1,5 @@
 import { MainLayout, PublicRoute } from "@components";
-import { ROUTE_PATHS } from "@constants/urls";
+import { ROUTE_PATHS } from "@constants";
 import { AuthProvider, ThemeProvider } from "@contexts";
 import { Detail, Home, Login, NotFound, Search, SignUp } from "@pages";
 import { Route, Routes } from "react-router";

@@ -1,4 +1,4 @@
-import { ROUTE_PATHS } from "@constants/urls";
+import { ROUTE_PATHS } from "@constants";
 import { useAuth } from "@hooks";
 import { Navigate } from "react-router";
 import { ClipLoader } from "react-spinners";

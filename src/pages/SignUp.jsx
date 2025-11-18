@@ -1,6 +1,6 @@
-import { supabase } from "@api/supabase";
+import { supabase } from "@api";
 import { AuthFormContainer, FormField } from "@components";
-import { ROUTE_PATHS } from "@constants/urls";
+import { ROUTE_PATHS } from "@constants";
 import { useAuthForm } from "@hooks";
 import { signUpSchema } from "@utils";
 import { Link } from "react-router";

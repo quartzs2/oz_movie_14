@@ -1,4 +1,4 @@
-import { fetchSearchMovies } from "@api/fetchSearchMovies";
+import { fetchSearchMovies } from "@api";
 import { ErrorMessage, LoadingSpinner, MovieCard } from "@components";
 import { useFetch } from "@hooks";
 import { useSearchParams } from "react-router";
