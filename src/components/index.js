@@ -1,4 +1,7 @@
-export { PublicRoute } from "./auth/PublicRoute";
+export { default as GoogleLoginButton } from "./auth/GoogleLoginButton";
+export { default as LoginForm } from "./auth/LoginForm";
+export { default as PublicRoute } from "./auth/PublicRoute";
+export { default as SocialLogin } from "./auth/SocialLogin";
 export { default as UserToggle } from "./auth/UserToggle";
 export { default as AuthFormContainer } from "./form/AuthFormContainer";
 export { default as FormField } from "./form/FormField";
@@ -10,5 +13,6 @@ export { default as MovieCardSkeleton } from "./movie/MovieCardSkeleton";
 export { default as NowPlayingCarousel } from "./movie/NowPlayingCarousel";
 export { default as Carousel } from "./ui/Carousel";
 export { default as ErrorMessage } from "./ui/ErrorMessage";
+export { default as FormDivider } from "./ui/FormDivider";
 export { default as LoadingSpinner } from "./ui/LoadingSpinner";
 export { default as ThemeToggle } from "./ui/ThemeToggle";
