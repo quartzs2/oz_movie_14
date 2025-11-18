@@ -1,6 +1,6 @@
 import { THEME } from "@constants";
 import { useTheme } from "@hooks";
-import { cn } from "@utils/cn";
+import { cn } from "@utils";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";

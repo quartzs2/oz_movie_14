@@ -1,5 +1,5 @@
 import { SearchBar, ThemeToggle, UserToggle } from "@components";
-import { ROUTE_PATHS } from "@constants/urls";
+import { ROUTE_PATHS } from "@constants";
 import { Link } from "react-router";
 
 const Header = () => {

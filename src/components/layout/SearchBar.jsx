@@ -1,4 +1,4 @@
-import { ROUTE_PATHS } from "@constants/urls";
+import { ROUTE_PATHS } from "@constants";
 import { useDebounce } from "@hooks";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router";

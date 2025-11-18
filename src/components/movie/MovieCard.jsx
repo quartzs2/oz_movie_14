@@ -1,5 +1,5 @@
-import { ROUTE_HANDLERS, TMDB_IMAGE_URL } from "@constants/urls";
-import { cn } from "@utils/cn";
+import { ROUTE_HANDLERS, TMDB_IMAGE_URL } from "@constants";
+import { cn } from "@utils";
 import { Star as StarIcon } from "lucide-react";
 import { Link } from "react-router";
 
