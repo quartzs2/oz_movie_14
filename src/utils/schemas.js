@@ -26,7 +26,14 @@ const VALIDATION_MESSAGES = {
 
 export const signUpSchema = z
   .object({
-    email: z.email(VALIDATION_MESSAGES.email.invalid),
+    email: z.email({
+      error: (issue) => {
+        if (issue.input === "") {
+          return VALIDATION_MESSAGES.email.required;
+        }
+        return VALIDATION_MESSAGES.email.invalid;
+      },
+    }),
     name: z
       .string()
       .min(1, VALIDATION_MESSAGES.name.required)
@@ -47,6 +54,13 @@ export const signUpSchema = z
   });
 
 export const loginSchema = z.object({
-  email: z.email(VALIDATION_MESSAGES.email.invalid),
+  email: z.email({
+    error: (issue) => {
+      if (issue.input === "") {
+        return VALIDATION_MESSAGES.email.required;
+      }
+      return VALIDATION_MESSAGES.email.invalid;
+    },
+  }),
   password: z.string().min(1, VALIDATION_MESSAGES.password.required),
 });

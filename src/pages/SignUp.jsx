@@ -1,9 +1,9 @@
-import { supabase } from "@api/supabase";
+import { supabase } from "@api";
 import { AuthFormContainer, FormField } from "@components";
-import { ROUTE_PATHS } from "@constants/urls";
+import { ROUTE_PATHS } from "@constants";
 import { useAuthForm } from "@hooks";
 import { signUpSchema } from "@utils";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 
 const SIGNUP_FIELDS = [
   {
@@ -37,8 +37,6 @@ const SIGNUP_FIELDS = [
 ];
 
 function SignUp() {
-  const navigate = useNavigate();
-
   const { errors, formData, handleChange, handleSubmit, isSubmitting } =
     useAuthForm({
       initialData: {
@@ -61,9 +59,6 @@ function SignUp() {
         if (error) {
           throw error;
         }
-
-        alert("회원가입이 완료되었습니다!");
-        navigate(ROUTE_PATHS.HOME);
       },
       schema: signUpSchema,
     });

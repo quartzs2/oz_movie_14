@@ -1,4 +1,4 @@
-import { fetchPopularMovieList } from "@api/fetchPopularMovieList";
+import { fetchPopularMovieList } from "@api";
 import {
   ErrorMessage,
   MovieCard,
