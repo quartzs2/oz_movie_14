@@ -1,4 +1,5 @@
 export { default as GoogleLoginButton } from "./auth/GoogleLoginButton";
+export { default as KakaoLoginButton } from "./auth/KakaoLoginButton";
 export { default as LoginForm } from "./auth/LoginForm";
 export { default as PublicRoute } from "./auth/PublicRoute";
 export { default as SocialLogin } from "./auth/SocialLogin";
