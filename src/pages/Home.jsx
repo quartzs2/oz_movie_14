@@ -1,20 +1,28 @@
 import { fetchPopularMovieList } from "@api";
-import {
-  ErrorMessage,
-  MovieCard,
-  MovieCardSkeleton,
-  NowPlayingCarousel,
-} from "@components";
-import { useFetch } from "@hooks";
+import { ErrorMessage, MovieList, NowPlayingCarousel } from "@components";
+import { useInfinityScroll } from "@hooks";
 
 const Home = () => {
-  const { data, error, isLoading } = useFetch({
-    queryFn: fetchPopularMovieList,
-  });
+  const { data, error, hasNextPage, isFetchingNextPage, isLoading, ref } =
+    useInfinityScroll({
+      getNextPageParam: (lastPage) => {
+        return lastPage.page < lastPage.totalPages
+          ? lastPage.page + 1
+          : undefined;
+      },
+      initialPageParam: 1,
+      queryFn: ({ pageParam, signal }) =>
+        fetchPopularMovieList({ page: pageParam, signal }),
+    });
 
   if (error) {
     return <ErrorMessage error={error} />;
   }
+
+  const movies = data?.pages?.flatMap((page) => page.results) || [];
+  const uniqueMovies = [
+    ...new Map(movies.map((movie) => [movie.id, movie])).values(),
+  ];
 
   return (
     <div className="flex flex-col gap-4 bg-neutral-50 dark:bg-gray-950">
@@ -24,13 +32,13 @@ const Home = () => {
           POPULAR MOVIES
         </h1>
         <div className="mx-auto mt-1 grid grid-cols-2 gap-4 px-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-          {isLoading
-            ? Array.from({ length: 12 }).map((_, index) => (
-                <MovieCardSkeleton key={index} />
-              ))
-            : data?.results?.map((movie) => (
-                <MovieCard key={movie.id} movie={movie} />
-              ))}
+          <MovieList
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            isLoading={isLoading}
+            lastElementRef={ref}
+            movies={uniqueMovies}
+          />
         </div>
       </section>
     </div>

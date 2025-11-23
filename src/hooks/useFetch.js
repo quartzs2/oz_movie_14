@@ -16,13 +16,17 @@ function useFetch({ options = {}, queryFn, queryKey = [] }) {
   const [memoizedOptions, setMemoizedOptions] = useState(options);
   const [memoizedQueryKey, setMemoizedQueryKey] = useState(queryKey);
 
-  if (!isEqual(memoizedOptions, options)) {
-    setMemoizedOptions(options);
-  }
+  useEffect(() => {
+    if (!isEqual(memoizedOptions, options)) {
+      setMemoizedOptions(options);
+    }
+  }, [options, memoizedOptions]);
 
-  if (!isEqual(memoizedQueryKey, queryKey)) {
-    setMemoizedQueryKey(queryKey);
-  }
+  useEffect(() => {
+    if (!isEqual(memoizedQueryKey, queryKey)) {
+      setMemoizedQueryKey(queryKey);
+    }
+  }, [queryKey, memoizedQueryKey]);
 
   useEffect(() => {
     if (!queryFnRef.current) {
