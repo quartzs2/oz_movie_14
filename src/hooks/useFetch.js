@@ -1,4 +1,7 @@
+import { isEqual } from "es-toolkit";
 import { useEffect, useRef, useState } from "react";
+
+const ABORT_ERROR_NAME = "AbortError";
 
 function useFetch({ options = {}, queryFn, queryKey = [] }) {
   const [data, setData] = useState(null);
@@ -6,10 +9,20 @@ function useFetch({ options = {}, queryFn, queryKey = [] }) {
   const [isLoading, setIsLoading] = useState(true);
 
   const queryFnRef = useRef(queryFn);
-  queryFnRef.current = queryFn;
+  useEffect(() => {
+    queryFnRef.current = queryFn;
+  }, [queryFn]);
 
-  const serializedOptions = JSON.stringify(options);
-  const serializedQueryKey = JSON.stringify(queryKey);
+  const [memoizedOptions, setMemoizedOptions] = useState(options);
+  const [memoizedQueryKey, setMemoizedQueryKey] = useState(queryKey);
+
+  if (!isEqual(memoizedOptions, options)) {
+    setMemoizedOptions(options);
+  }
+
+  if (!isEqual(memoizedQueryKey, queryKey)) {
+    setMemoizedQueryKey(queryKey);
+  }
 
   useEffect(() => {
     if (!queryFnRef.current) {
@@ -25,10 +38,8 @@ function useFetch({ options = {}, queryFn, queryKey = [] }) {
       setData(null);
 
       try {
-        const parsedOptions = JSON.parse(serializedOptions);
-
         const result = await queryFnRef.current({
-          ...parsedOptions,
+          ...memoizedOptions,
           signal: controller.signal,
         });
 
@@ -36,11 +47,10 @@ function useFetch({ options = {}, queryFn, queryKey = [] }) {
           setData(result);
         }
       } catch (err) {
-        if (err.name !== "AbortError") {
+        if (err.name !== ABORT_ERROR_NAME) {
           setError(err);
         }
       } finally {
-        // abort되었을 때는 로딩 상태를 false로 변경하지 않음
         if (!controller.signal.aborted) {
           setIsLoading(false);
         }
@@ -52,7 +62,7 @@ function useFetch({ options = {}, queryFn, queryKey = [] }) {
     return () => {
       controller.abort();
     };
-  }, [serializedQueryKey, serializedOptions]);
+  }, [memoizedQueryKey, memoizedOptions]);
 
   return { data, error, isLoading };
 }
