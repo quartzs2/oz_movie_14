@@ -1,8 +1,7 @@
+import { isRequestCanceled } from "@api/axios";
 import { useIntersect } from "@hooks";
 import { isEqual } from "es-toolkit";
 import { useCallback, useEffect, useRef, useState } from "react";
-
-const ABORT_ERROR_NAME = "AbortError";
 
 /**
  * 무한 스크롤과 요청 취소(AbortController)를 관리하는 훅
@@ -34,7 +33,7 @@ const useInfinityScroll = ({
   const abortControllerRef = useRef(null);
   const fnsRef = useRef({ getNextPageParam, queryFn });
 
-  // 함수 참조를 최신 상태로 유지 (fetchPage의 의존성 제거 목적)
+  // 함수 참조를 최신 상태로 유지
   useEffect(() => {
     fnsRef.current = { getNextPageParam, queryFn };
   });
@@ -61,10 +60,12 @@ const useInfinityScroll = ({
 
       const result = await currentQueryFn({
         pageParam,
-        signal: controller.signal, // queryFn 내부에서 signal 연결 필수
+        signal: controller.signal,
       });
 
-      if (!isMountedRef.current) return;
+      if (!isMountedRef.current) {
+        return;
+      }
 
       setData((prev) => {
         const newPages = isInitial ? [result] : [...prev.pages, result];
@@ -85,8 +86,12 @@ const useInfinityScroll = ({
         return isEqual(prev, newState) ? prev : newState;
       });
     } catch (err) {
-      if (err.name === ABORT_ERROR_NAME) return;
-      if (isMountedRef.current) setError(err);
+      if (isRequestCanceled(err)) {
+        return;
+      }
+      if (isMountedRef.current) {
+        setError(err);
+      }
     } finally {
       // 컴포넌트가 마운트 상태이고, 해당 요청이 취소되지 않았을 때만 로딩 해제
       if (isMountedRef.current && !controller.signal.aborted) {
