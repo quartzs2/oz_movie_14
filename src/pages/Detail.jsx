@@ -1,16 +1,16 @@
 import { fetchMovieDetails } from "@api";
 import { ErrorMessage, LoadingSpinner } from "@components";
 import { TMDB_IMAGE_URL } from "@constants";
-import { useFetch } from "@hooks";
+import { useQuery } from "@tanstack/react-query";
 import { StarIcon } from "lucide-react";
 import { useParams } from "react-router";
 
 const Detail = () => {
   const { movieId } = useParams();
 
-  const { data, error, isLoading } = useFetch({
-    queryFn: (options) => fetchMovieDetails({ movieId, ...options }),
-    queryKey: [movieId],
+  const { data, error, isLoading } = useQuery({
+    queryFn: ({ signal }) => fetchMovieDetails({ movieId, signal }),
+    queryKey: ["movie", movieId],
   });
 
   if (isLoading) {

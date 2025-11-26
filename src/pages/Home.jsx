@@ -1,19 +1,35 @@
 import { fetchPopularMovieList } from "@api";
 import { ErrorMessage, MovieList, NowPlayingCarousel } from "@components";
-import { useInfinityScroll } from "@hooks";
+import { useIntersect } from "@hooks";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 const Home = () => {
-  const { data, error, hasNextPage, isFetchingNextPage, isLoading, ref } =
-    useInfinityScroll({
-      getNextPageParam: (lastPage) => {
-        return lastPage.page < lastPage.totalPages
-          ? lastPage.page + 1
-          : undefined;
-      },
-      initialPageParam: 1,
-      queryFn: ({ pageParam, signal }) =>
-        fetchPopularMovieList({ page: pageParam, signal }),
-    });
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+  } = useInfiniteQuery({
+    getNextPageParam: (lastPage) => {
+      return lastPage.page < lastPage.totalPages
+        ? lastPage.page + 1
+        : undefined;
+    },
+    initialPageParam: 1,
+    queryFn: ({ pageParam, signal }) =>
+      fetchPopularMovieList({ page: pageParam, signal }),
+    queryKey: ["popularMovies"],
+  });
+
+  const ref = useIntersect({
+    onIntersect: () => {
+      if (hasNextPage && !isLoading && !isFetchingNextPage) {
+        fetchNextPage();
+      }
+    },
+  });
 
   if (error) {
     return <ErrorMessage error={error} />;

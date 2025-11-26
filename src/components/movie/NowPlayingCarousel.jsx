@@ -5,12 +5,13 @@ import {
   MovieCard,
   MovieCardSkeleton,
 } from "@components";
-import { useFetch } from "@hooks";
+import { useQuery } from "@tanstack/react-query";
 import { SwiperSlide } from "swiper/react";
 
 const NowPlayingCarousel = () => {
-  const { data, error, isLoading } = useFetch({
-    queryFn: fetchNowPlayingMovies,
+  const { data, error, isLoading } = useQuery({
+    queryFn: ({ signal }) => fetchNowPlayingMovies({ signal }),
+    queryKey: ["nowPlaying"],
   });
 
   if (error) {
