@@ -1,6 +1,6 @@
-import { fetchSearchMovies, movieKeys } from "@api";
-import { ErrorMessage, LoadingSpinner, MovieCard } from "@components";
-import { useQuery } from "@tanstack/react-query";
+import { searchMoviesQueryOptions } from "@api";
+import { MovieCard } from "@components";
+import { skipToken, useSuspenseQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
 
 const Search = () => {
@@ -8,11 +8,11 @@ const Search = () => {
   const query = (searchParams.get("query") ?? "").trim();
   const hasQuery = query.length > 0;
 
-  const { data, error, isLoading } = useQuery({
-    enabled: hasQuery,
-    queryFn: ({ signal }) => fetchSearchMovies({ query, signal }),
-    queryKey: movieKeys.search(query),
-  });
+  const { data } = useSuspenseQuery(
+    hasQuery
+      ? searchMoviesQueryOptions(query)
+      : { queryFn: skipToken, queryKey: ["search", ""] },
+  );
 
   if (!hasQuery) {
     return (
@@ -22,14 +22,6 @@ const Search = () => {
         </p>
       </div>
     );
-  }
-
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
-  if (error) {
-    return <ErrorMessage error={error} />;
   }
 
   if (!data?.results?.length) {

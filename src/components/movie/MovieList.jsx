@@ -3,20 +3,9 @@ import { MovieCard, MovieCardSkeleton } from "@components";
 export const MovieList = ({
   hasNextPage,
   isFetchingNextPage,
-  isLoading,
   lastElementRef,
   movies,
 }) => {
-  if (isLoading) {
-    return (
-      <>
-        {Array.from({ length: 12 }).map((_, index) => (
-          <MovieCardSkeleton key={`skeleton-${index}`} />
-        ))}
-      </>
-    );
-  }
-
   return (
     <>
       {movies.map((movie) => (

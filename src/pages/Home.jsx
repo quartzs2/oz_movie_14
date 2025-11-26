@@ -1,45 +1,12 @@
-import { fetchPopularMovieList, movieKeys } from "@api";
-import { ErrorMessage, MovieList, NowPlayingCarousel } from "@components";
-import { useIntersect } from "@hooks";
-import { useInfiniteQuery } from "@tanstack/react-query";
+import {
+  ErrorMessage,
+  MovieListSkeleton,
+  NowPlayingCarousel,
+  PopularMovieList,
+} from "@components";
+import { ErrorBoundary, Suspense } from "@suspensive/react";
 
 const Home = () => {
-  const {
-    data,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isLoading,
-  } = useInfiniteQuery({
-    getNextPageParam: (lastPage) => {
-      return lastPage.page < lastPage.totalPages
-        ? lastPage.page + 1
-        : undefined;
-    },
-    initialPageParam: 1,
-    queryFn: ({ pageParam, signal }) =>
-      fetchPopularMovieList({ page: pageParam, signal }),
-    queryKey: movieKeys.popular(),
-  });
-
-  const ref = useIntersect({
-    onIntersect: () => {
-      if (hasNextPage && !isLoading && !isFetchingNextPage) {
-        fetchNextPage();
-      }
-    },
-  });
-
-  if (error) {
-    return <ErrorMessage error={error} />;
-  }
-
-  const movies = data?.pages?.flatMap((page) => page.results) || [];
-  const uniqueMovies = [
-    ...new Map(movies.map((movie) => [movie.id, movie])).values(),
-  ];
-
   return (
     <div className="flex flex-col gap-4 bg-neutral-50 dark:bg-gray-950">
       <NowPlayingCarousel />
@@ -48,13 +15,15 @@ const Home = () => {
           POPULAR MOVIES
         </h1>
         <div className="mx-auto mt-1 grid grid-cols-2 gap-4 px-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-          <MovieList
-            hasNextPage={hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
-            isLoading={isLoading}
-            lastElementRef={ref}
-            movies={uniqueMovies}
-          />
+          <ErrorBoundary
+            fallback={({ error, reset }) => (
+              <ErrorMessage error={error} reset={reset} />
+            )}
+          >
+            <Suspense fallback={<MovieListSkeleton />}>
+              <PopularMovieList />
+            </Suspense>
+          </ErrorBoundary>
         </div>
       </section>
     </div>

@@ -1,25 +1,13 @@
-import { fetchMovieDetails, movieKeys } from "@api";
-import { ErrorMessage, LoadingSpinner } from "@components";
+import { movieDetailQueryOptions } from "@api";
 import { TMDB_IMAGE_URL } from "@constants";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { StarIcon } from "lucide-react";
 import { useParams } from "react-router";
 
 const Detail = () => {
   const { movieId } = useParams();
 
-  const { data, error, isLoading } = useQuery({
-    queryFn: ({ signal }) => fetchMovieDetails({ movieId, signal }),
-    queryKey: movieKeys.detail(movieId),
-  });
-
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
-  if (error) {
-    return <ErrorMessage error={error} />;
-  }
+  const { data } = useSuspenseQuery(movieDetailQueryOptions(movieId));
 
   const { backdropPath, genres, overview, title, voteAverage } = data;
 
