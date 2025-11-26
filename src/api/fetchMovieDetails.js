@@ -1,25 +1,12 @@
-import { API_ROUTES, TMDB_API_URL } from "@constants";
-
-const defaultOptions = {
-  headers: {
-    Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_ACCESS_TOKEN}`,
-  },
-};
+import tmdbClient from "@api/axios";
+import { API_ROUTES } from "@constants";
 
 export const fetchMovieDetails = async ({ movieId, signal }) => {
-  const apiUrl = new URL(API_ROUTES.MOVIE_DETAILS({ movieId }), TMDB_API_URL);
-  apiUrl.searchParams.set("language", "ko-KR");
-
-  const response = await fetch(apiUrl, {
-    ...defaultOptions,
+  const response = await tmdbClient.get(API_ROUTES.MOVIE_DETAILS({ movieId }), {
     signal,
   });
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-
-  const result = await response.json();
+  const result = response.data;
 
   return {
     backdropPath: result.backdrop_path,
