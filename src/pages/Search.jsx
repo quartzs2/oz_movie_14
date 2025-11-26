@@ -1,6 +1,6 @@
-import { fetchSearchMovies } from "@api";
+import { fetchSearchMovies, movieKeys } from "@api";
 import { ErrorMessage, LoadingSpinner, MovieCard } from "@components";
-import { useFetch } from "@hooks";
+import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
 
 const Search = () => {
@@ -8,11 +8,10 @@ const Search = () => {
   const query = (searchParams.get("query") ?? "").trim();
   const hasQuery = query.length > 0;
 
-  const { data, error, isLoading } = useFetch({
-    queryFn: hasQuery
-      ? (options) => fetchSearchMovies({ query, ...options })
-      : undefined,
-    queryKey: hasQuery ? ["search", query] : ["search"],
+  const { data, error, isLoading } = useQuery({
+    enabled: hasQuery,
+    queryFn: ({ signal }) => fetchSearchMovies({ query, signal }),
+    queryKey: movieKeys.search(query),
   });
 
   if (!hasQuery) {
