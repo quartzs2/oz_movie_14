@@ -1,4 +1,4 @@
-import { fetchSearchMovies } from "@api";
+import { fetchSearchMovies, movieKeys } from "@api";
 import { ErrorMessage, LoadingSpinner, MovieCard } from "@components";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
@@ -11,7 +11,7 @@ const Search = () => {
   const { data, error, isLoading } = useQuery({
     enabled: hasQuery,
     queryFn: ({ signal }) => fetchSearchMovies({ query, signal }),
-    queryKey: ["search", query],
+    queryKey: movieKeys.search(query),
   });
 
   if (!hasQuery) {

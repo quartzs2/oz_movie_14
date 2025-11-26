@@ -1,4 +1,4 @@
-import { fetchPopularMovieList } from "@api";
+import { fetchPopularMovieList, movieKeys } from "@api";
 import { ErrorMessage, MovieList, NowPlayingCarousel } from "@components";
 import { useIntersect } from "@hooks";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -20,7 +20,7 @@ const Home = () => {
     initialPageParam: 1,
     queryFn: ({ pageParam, signal }) =>
       fetchPopularMovieList({ page: pageParam, signal }),
-    queryKey: ["popularMovies"],
+    queryKey: movieKeys.popular(),
   });
 
   const ref = useIntersect({

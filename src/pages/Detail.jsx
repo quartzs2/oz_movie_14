@@ -1,4 +1,4 @@
-import { fetchMovieDetails } from "@api";
+import { fetchMovieDetails, movieKeys } from "@api";
 import { ErrorMessage, LoadingSpinner } from "@components";
 import { TMDB_IMAGE_URL } from "@constants";
 import { useQuery } from "@tanstack/react-query";
@@ -10,7 +10,7 @@ const Detail = () => {
 
   const { data, error, isLoading } = useQuery({
     queryFn: ({ signal }) => fetchMovieDetails({ movieId, signal }),
-    queryKey: ["movie", movieId],
+    queryKey: movieKeys.detail(movieId),
   });
 
   if (isLoading) {

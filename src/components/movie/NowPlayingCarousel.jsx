@@ -1,4 +1,4 @@
-import { fetchNowPlayingMovies } from "@api/fetchNowPlayingMovies";
+import { fetchNowPlayingMovies, movieKeys } from "@api";
 import {
   Carousel,
   ErrorMessage,
@@ -11,7 +11,7 @@ import { SwiperSlide } from "swiper/react";
 const NowPlayingCarousel = () => {
   const { data, error, isLoading } = useQuery({
     queryFn: ({ signal }) => fetchNowPlayingMovies({ signal }),
-    queryKey: ["nowPlaying"],
+    queryKey: movieKeys.nowPlaying(),
   });
 
   if (error) {
