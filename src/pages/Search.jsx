@@ -1,4 +1,4 @@
-import { fetchSearchMovies, movieKeys } from "@api";
+import { searchMoviesQueryOptions } from "@api";
 import { MovieCard } from "@components";
 import { skipToken, useSuspenseQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
@@ -8,12 +8,11 @@ const Search = () => {
   const query = (searchParams.get("query") ?? "").trim();
   const hasQuery = query.length > 0;
 
-  const { data } = useSuspenseQuery({
-    queryFn: hasQuery
-      ? ({ signal }) => fetchSearchMovies({ query, signal })
-      : skipToken,
-    queryKey: movieKeys.search(query),
-  });
+  const { data } = useSuspenseQuery(
+    hasQuery
+      ? searchMoviesQueryOptions(query)
+      : { queryFn: skipToken, queryKey: ["search", ""] },
+  );
 
   if (!hasQuery) {
     return (

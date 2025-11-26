@@ -1,4 +1,4 @@
-import { fetchMovieDetails, movieKeys } from "@api";
+import { movieDetailQueryOptions } from "@api";
 import { TMDB_IMAGE_URL } from "@constants";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { StarIcon } from "lucide-react";
@@ -7,10 +7,7 @@ import { useParams } from "react-router";
 const Detail = () => {
   const { movieId } = useParams();
 
-  const { data } = useSuspenseQuery({
-    queryFn: ({ signal }) => fetchMovieDetails({ movieId, signal }),
-    queryKey: movieKeys.detail(movieId),
-  });
+  const { data } = useSuspenseQuery(movieDetailQueryOptions(movieId));
 
   const { backdropPath, genres, overview, title, voteAverage } = data;
 
