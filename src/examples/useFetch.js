@@ -1,6 +1,7 @@
-import { isRequestCanceled } from "@api/axios";
 import { isEqual } from "es-toolkit";
 import { useEffect, useRef, useState } from "react";
+
+import { isRequestCanceled } from "./utils";
 
 /**
  * 비동기 데이터를 가져오기 위한 커스텀 훅입니다.
