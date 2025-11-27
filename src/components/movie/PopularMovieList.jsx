@@ -2,6 +2,7 @@ import { popularMoviesInfiniteQueryOptions } from "@api";
 import { MovieList } from "@components";
 import { useIntersect } from "@hooks";
 import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 
 export const PopularMovieList = () => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -15,10 +16,10 @@ export const PopularMovieList = () => {
     },
   });
 
-  const movies = data?.pages?.flatMap((page) => page.results) || [];
-  const uniqueMovies = [
-    ...new Map(movies.map((movie) => [movie.id, movie])).values(),
-  ];
+  const uniqueMovies = useMemo(() => {
+    const movies = data.pages.flatMap((page) => page.results);
+    return [...new Map(movies.map((movie) => [movie.id, movie])).values()];
+  }, [data.pages]);
 
   return (
     <MovieList

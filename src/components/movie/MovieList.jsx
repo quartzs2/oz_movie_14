@@ -9,7 +9,7 @@ export const MovieList = ({
   return (
     <>
       {movies.map((movie) => (
-        <MovieCard key={`${movie.id}-${movie.title}`} movie={movie} />
+        <MovieCard key={movie.id} movie={movie} />
       ))}
 
       {isFetchingNextPage &&

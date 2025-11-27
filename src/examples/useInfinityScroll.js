@@ -1,11 +1,12 @@
-import { isRequestCanceled } from "@api/axios";
 import { useIntersect } from "@hooks";
 import { isEqual } from "es-toolkit";
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import { isRequestCanceled } from "./utils";
+
 /**
  * 무한 스크롤과 요청 취소(AbortController)를 관리하는 훅
- * * @param {Object} params
+ *
  * @param {Function} params.getNextPageParam (lastPage, allPages) => nextParam
  * @param {any} [params.initialPageParam=1]
  * @param {Function} params.queryFn ({ pageParam, signal }) => Promise
