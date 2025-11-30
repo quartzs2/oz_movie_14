@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "sonner";
 
 function useAuthForm({ initialData, onSubmit, schema }) {
   const initialErrors = Object.keys(initialData).reduce(
@@ -46,7 +47,7 @@ function useAuthForm({ initialData, onSubmit, schema }) {
     e.preventDefault();
 
     if (!validateForm({ data: formData })) {
-      alert("입력 정보를 확인해주세요.");
+      toast.error("입력 정보를 확인해주세요.");
       return;
     }
 
@@ -55,7 +56,7 @@ function useAuthForm({ initialData, onSubmit, schema }) {
     try {
       await onSubmit(formData);
     } catch (error) {
-      alert(error.message || "오류가 발생했습니다.");
+      toast.error(error.message || "오류가 발생했습니다.");
     } finally {
       setIsSubmitting(false);
     }

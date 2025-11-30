@@ -1,25 +1,14 @@
-import { fetchMovieDetails } from "@api";
-import { ErrorMessage, LoadingSpinner } from "@components";
+import { movieDetailQueryOptions } from "@api";
+import { BookmarkButton, Image } from "@components";
 import { TMDB_IMAGE_URL } from "@constants";
-import { useFetch } from "@hooks";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { StarIcon } from "lucide-react";
 import { useParams } from "react-router";
 
 const Detail = () => {
   const { movieId } = useParams();
 
-  const { data, error, isLoading } = useFetch({
-    queryFn: (options) => fetchMovieDetails({ movieId, ...options }),
-    queryKey: [movieId],
-  });
-
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
-  if (error) {
-    return <ErrorMessage error={error} />;
-  }
+  const { data } = useSuspenseQuery(movieDetailQueryOptions(movieId));
 
   const { backdropPath, genres, overview, title, voteAverage } = data;
 
@@ -27,7 +16,7 @@ const Detail = () => {
     <main className="bg-neutral-50 pt-8 pb-8 text-neutral-900 dark:bg-gray-950 dark:text-gray-100">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 lg:flex-row lg:items-start">
         <div className="flex w-full items-center justify-center lg:max-w-sm">
-          <img
+          <Image
             alt={title}
             className="aspect-video w-full rounded-3xl object-cover shadow-2xl lg:aspect-2/3"
             src={TMDB_IMAGE_URL + backdropPath}
@@ -36,13 +25,18 @@ const Detail = () => {
 
         <article className="flex w-full flex-1 flex-col gap-8">
           <header className="space-y-4">
-            <div>
-              <p className="text-sm tracking-widest text-neutral-500 uppercase dark:text-gray-400">
-                Movie Detail
-              </p>
-              <h1 className="mt-1 text-3xl leading-tight font-bold text-neutral-900 lg:text-4xl dark:text-gray-100">
-                {title}
-              </h1>
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-sm tracking-widest text-neutral-500 uppercase dark:text-gray-400">
+                  Movie Detail
+                </p>
+                <h1 className="mt-1 text-3xl leading-tight font-bold text-neutral-900 lg:text-4xl dark:text-gray-100">
+                  {title}
+                </h1>
+              </div>
+              <div className="relative">
+                <BookmarkButton movie={data} movieId={Number(movieId)} />
+              </div>
             </div>
 
             <div className="flex flex-wrap items-center gap-4">

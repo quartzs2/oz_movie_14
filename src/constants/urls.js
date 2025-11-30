@@ -12,6 +12,7 @@ export const ROUTE_PATHS = {
   DETAIL: "/detail/:movieId",
   HOME: "/",
   LOGIN: "/login",
+  MYPAGE: "/mypage",
   NOT_FOUND: "*",
   SEARCH: "/search",
   SIGNUP: "/signup",

@@ -3,7 +3,7 @@ import { useAuth } from "@hooks";
 import { Navigate } from "react-router";
 import { ClipLoader } from "react-spinners";
 
-function PublicRoute({ children }) {
+function GuestOnlyRoute({ children }) {
   const { isLoading, user } = useAuth();
 
   if (isLoading) {
@@ -21,4 +21,4 @@ function PublicRoute({ children }) {
   return <>{children}</>;
 }
 
-export default PublicRoute;
+export default GuestOnlyRoute;
