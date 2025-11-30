@@ -1,4 +1,5 @@
 import { movieDetailQueryOptions } from "@api";
+import { Image } from "@components";
 import { TMDB_IMAGE_URL } from "@constants";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { StarIcon } from "lucide-react";
@@ -15,7 +16,7 @@ const Detail = () => {
     <main className="bg-neutral-50 pt-8 pb-8 text-neutral-900 dark:bg-gray-950 dark:text-gray-100">
       <div className="mx-auto flex w-full max-w-5xl flex-col gap-10 px-4 lg:flex-row lg:items-start">
         <div className="flex w-full items-center justify-center lg:max-w-sm">
-          <img
+          <Image
             alt={title}
             className="aspect-video w-full rounded-3xl object-cover shadow-2xl lg:aspect-2/3"
             src={TMDB_IMAGE_URL + backdropPath}

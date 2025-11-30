@@ -1,3 +1,4 @@
+import { Image } from "@components";
 import { ROUTE_HANDLERS, TMDB_IMAGE_URL } from "@constants";
 import { cn } from "@utils";
 import { Star as StarIcon } from "lucide-react";
@@ -10,7 +11,7 @@ const MovieCard = ({ movie }) => {
         className="group relative block"
         to={ROUTE_HANDLERS.DETAIL(movie.id)}
       >
-        <img
+        <Image
           alt={movie.title}
           className="aspect-2/3 w-full rounded-2xl object-cover"
           src={TMDB_IMAGE_URL + movie.posterPath}

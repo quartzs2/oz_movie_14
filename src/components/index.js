@@ -18,5 +18,6 @@ export { PopularMovieList } from "./movie/PopularMovieList";
 export { default as Carousel } from "./ui/Carousel";
 export { default as ErrorMessage } from "./ui/ErrorMessage";
 export { default as FormDivider } from "./ui/FormDivider";
+export { default as Image } from "./ui/Image";
 export { default as LoadingSpinner } from "./ui/LoadingSpinner";
 export { default as ThemeToggle } from "./ui/ThemeToggle";
