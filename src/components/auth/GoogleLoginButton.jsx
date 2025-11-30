@@ -1,3 +1,4 @@
+import { Image } from "@components";
 import { cn } from "@utils";
 
 function GoogleLoginButton({ className, disabled, isLoading, ...props }) {
@@ -22,7 +23,7 @@ function GoogleLoginButton({ className, disabled, isLoading, ...props }) {
       type="button"
       {...props}
     >
-      <img
+      <Image
         alt="Google logo"
         className="h-[18px] w-[18px]"
         src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg"
