@@ -1,10 +1,12 @@
-import { Image } from "@components";
+import { BookmarkButton, Image } from "@components";
 import { ROUTE_HANDLERS, TMDB_IMAGE_URL } from "@constants";
 import { cn } from "@utils";
 import { Star as StarIcon } from "lucide-react";
 import { Link } from "react-router";
 
 const MovieCard = ({ movie }) => {
+  const voteAverage = Number(movie.voteAverage).toFixed(1);
+
   return (
     <article className="w-full">
       <Link
@@ -16,6 +18,9 @@ const MovieCard = ({ movie }) => {
           className="aspect-2/3 w-full rounded-2xl object-cover"
           src={TMDB_IMAGE_URL + movie.posterPath}
         />
+
+        <BookmarkButton movie={movie} movieId={movie.id} />
+
         <div
           className={cn(
             "absolute inset-0 flex flex-col justify-end",
@@ -28,7 +33,7 @@ const MovieCard = ({ movie }) => {
           </h2>
           <p className="mt-1 flex items-center gap-1 text-xs text-yellow-400">
             <StarIcon className="h-3 w-3 fill-current" />
-            {movie.voteAverage.toFixed(1)}
+            {voteAverage}
           </p>
         </div>
       </Link>

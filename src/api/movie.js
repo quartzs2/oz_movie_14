@@ -16,7 +16,9 @@ export const movieApi = {
     return {
       backdropPath: result.backdrop_path,
       genres: result.genres,
+      id: result.id,
       overview: result.overview,
+      posterPath: result.poster_path,
       title: result.title,
       voteAverage: result.vote_average,
     };

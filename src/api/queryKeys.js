@@ -7,3 +7,9 @@ export const movieKeys = {
   search: (query) => [...movieKeys.searches(), query],
   searches: () => [...movieKeys.all, "search"],
 };
+
+export const bookmarkKeys = {
+  all: ["bookmarks"],
+  check: (userId, movieId) => [...bookmarkKeys.all, "check", userId, movieId],
+  list: (userId) => [...bookmarkKeys.all, userId],
+};

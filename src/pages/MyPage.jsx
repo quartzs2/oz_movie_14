@@ -1,8 +1,12 @@
-import { Avatar } from "@components";
-import { useAuth } from "@hooks";
+import { Avatar, BookmarkList, LoadingSpinner } from "@components";
+import { useAuth, useBookmarks } from "@hooks";
+import { Suspense } from "@suspensive/react";
+import { Bookmark as BookmarkIcon } from "lucide-react";
 
 function MyPage() {
   const { user } = useAuth();
+  const { data: bookmarks } = useBookmarks();
+
   const userName =
     user?.user_metadata?.name ||
     user?.email?.split("@")[0] ||
@@ -10,7 +14,7 @@ function MyPage() {
 
   return (
     <div className="min-h-screen bg-neutral-50 dark:bg-gray-950">
-      <div className="mx-auto max-w-4xl px-4 py-8">
+      <div className="mx-auto max-w-6xl px-4 py-8">
         <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
           <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">
             마이페이지
@@ -44,6 +48,24 @@ function MyPage() {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="mt-8 rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
+          <div className="mb-6 flex items-center gap-2">
+            <BookmarkIcon className="h-6 w-6 text-yellow-400" />
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              북마크한 영화
+            </h2>
+            {bookmarks && (
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                ({bookmarks.length})
+              </span>
+            )}
+          </div>
+
+          <Suspense fallback={<LoadingSpinner fullscreen={false} />}>
+            <BookmarkList bookmarks={bookmarks} />
+          </Suspense>
         </div>
       </div>
     </div>

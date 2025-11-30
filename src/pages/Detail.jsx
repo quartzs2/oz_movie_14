@@ -1,5 +1,5 @@
 import { movieDetailQueryOptions } from "@api";
-import { Image } from "@components";
+import { BookmarkButton, Image } from "@components";
 import { TMDB_IMAGE_URL } from "@constants";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { StarIcon } from "lucide-react";
@@ -25,13 +25,18 @@ const Detail = () => {
 
         <article className="flex w-full flex-1 flex-col gap-8">
           <header className="space-y-4">
-            <div>
-              <p className="text-sm tracking-widest text-neutral-500 uppercase dark:text-gray-400">
-                Movie Detail
-              </p>
-              <h1 className="mt-1 text-3xl leading-tight font-bold text-neutral-900 lg:text-4xl dark:text-gray-100">
-                {title}
-              </h1>
+            <div className="flex items-start justify-between">
+              <div>
+                <p className="text-sm tracking-widest text-neutral-500 uppercase dark:text-gray-400">
+                  Movie Detail
+                </p>
+                <h1 className="mt-1 text-3xl leading-tight font-bold text-neutral-900 lg:text-4xl dark:text-gray-100">
+                  {title}
+                </h1>
+              </div>
+              <div className="relative">
+                <BookmarkButton movie={data} movieId={Number(movieId)} />
+              </div>
             </div>
 
             <div className="flex flex-wrap items-center gap-4">
